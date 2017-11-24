@@ -8,20 +8,26 @@
        install_dir: "/var/redis/redis-4.0.2"
        usr_local_bin: "/usr/local/bin"
        init_dir: "/etc/init.d"
-       init_file: "{{ init_dir }}/init_6379"
+       init_file: "{{ init_dir }}/redis_6379"
        config_dir: "/etc/redis"
        config_file: "{{ config_dir }}/redis_6379.conf"
        config_template: redis_std_config_file_template.jinja2
+       init_template: redis_std_init_file_template.jinja2
        redis_dir_dir: "/var/redis"
 
   become: true
 
   tasks:
 
-  - name: check if already installed
+  - name: check if config file is already installed
     stat:
       path: "{{ config_file }}"
-    register: redis_inst_exists
+    register: redis_config_exists
+
+  - name: check if init file is already installed
+    stat:
+      path: "{{ init_file }}"
+    register: redis_init_exists
 
   - name: create instance base directories 
     file:
@@ -33,6 +39,23 @@
       - { dir: "{{ redis_dir_dir }}" }
 
   - name: copy config file using template
-    #copy: src={{ config_template }} dest={{ config_file }}
-    template: src={{ config_template }} dest={{ config_file }}
-    when: redis_inst_exists.stat.exists == False
+    template: 
+        src: "{{ config_template }}"
+        dest: "{{ config_file }}"
+        mode: "0600"
+    when: redis_config_exists.stat.exists == False
+
+  - name: copy startup init file using template
+    template: 
+         src:  "{{ init_template }}"
+         dest: "{{ init_file }}"
+         mode: "0700"
+    when: redis_init_exists.stat.exists == False
+
+  #- name: copy config file using template
+    #template: src={{ config_template }} dest={{ config_file }}
+    #when: redis_config_exists.stat.exists == False
+
+  #- name: copy startup init file using template
+    #template: src={{ init_template }} dest={{ init_file }}
+    #when: redis_init_exists.stat.exists == False
