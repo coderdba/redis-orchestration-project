@@ -13,7 +13,7 @@
        config_file: "{{ config_dir }}/redis_6379.conf"
        config_template: redis_std_config_file_template.jinja2
        init_template: redis_std_init_file_template.jinja2
-       redis_dir_dir: "/var/redis"
+       redis_dir_dir: "/var/redis/{{redis_port}}"
 
   become: true
 
@@ -51,6 +51,9 @@
          dest: "{{ init_file }}"
          mode: "0700"
     when: redis_init_exists.stat.exists == False
+
+  - name: start redis
+    shell: "{{ init_file }} start"
 
   #- name: copy config file using template
     #template: src={{ config_template }} dest={{ config_file }}
