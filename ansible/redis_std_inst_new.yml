@@ -14,6 +14,7 @@
        config_template: redis_std_config_file_template.jinja2
        init_template: redis_std_init_file_template.jinja2
        redis_dir_dir: "/var/redis/{{redis_port}}"
+       redis_base_dir: "/var/redis"
 
   become: true
 
@@ -36,6 +37,7 @@
       mode: 0700
     with_items:
       - { dir: "{{ config_dir }}" }
+      - { dir: "{{ redis_base_dir }}" }
       - { dir: "{{ redis_dir_dir }}" }
 
   - name: copy config file using template
