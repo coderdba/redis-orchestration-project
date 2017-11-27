@@ -3,6 +3,22 @@
 ============================================================
 Run these on the Ansible control node
 
+-------------------
+ENVIRONMENT SETUP
+-------------------
+ANSIBLE_INVENTORY=/Users/username/work/ansible/hosts
+
+export PATH=~/opt/ruby-2.4.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export GEM_HOME=~/opt/ruby-2.4.2/gemhome
+export GEM_PATH=~/opt/ruby-2.4.2/lib/ruby/2.4.0:~/opt/ruby-2.4.2/lib/ruby/gems/2.4.0/gems:~/opt/ruby-2.4.2/gemhome
+export GEM_ROOT=
+#export GEM_ROOT=~/opt/ruby-2.4.2/lib/ruby/gems/2.4.0/gems
+
+----------------------
+SSH SETUP for ANSIBLE
+----------------------
+Follow ansible notes on how to setup ssh keys with the VM/node and the ansible workstation
+
 -------------
 INSTALL REDIS
 -------------
