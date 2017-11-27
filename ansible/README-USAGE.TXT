@@ -7,6 +7,7 @@ Run these on the Ansible control node
 ENVIRONMENT SETUP
 -------------------
 ANSIBLE_INVENTORY=/Users/username/work/ansible/hosts
+ssh-add /Users/username/work/ansible/sshkeys/ansible.key
 
 export PATH=~/opt/ruby-2.4.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export GEM_HOME=~/opt/ruby-2.4.2/gemhome
