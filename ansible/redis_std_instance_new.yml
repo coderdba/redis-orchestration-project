@@ -25,10 +25,24 @@
       path: "{{ config_file }}"
     register: redis_config_exists
 
+  - name: is config file already installed? will exit if true
+    debug: 
+      msg: "{{redis_config_exists.stat.exists}}"
+
+  - meta: end_play
+    when: redis_config_exists.stat.exists == True
+
   - name: check if init file is already installed
     stat:
       path: "{{ init_file }}"
     register: redis_init_exists
+
+  - name: is init file already installed? will exit if true
+    debug: 
+      msg: "{{redis_init_exists.stat.exists}}"
+
+  - meta: end_play
+    when: redis_init_exists.stat.exists == True
 
   - name: create instance base directories 
     file:
